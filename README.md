@@ -1,5 +1,6 @@
 <<<<<<< HEAD
 # FindersKeepers API
+This is the Final Project for the Course, " 23ZF03 : Developing And Deploying Scalable Applications "
 
 ## Tech Stack
 - Flask
@@ -34,5 +35,5 @@ POST /api/claims/<id>
 - Push to DockerHub
 =======
 # FindersKeepers
-This is the Final Project for the Course, " 23ZF03 : Developing And Deploying Scalable Applications "
+
 >>>>>>> 98a39c520eb675c55254d11973017defce2393cb
