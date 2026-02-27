@@ -1,0 +1,20 @@
+pipeline {
+  agent any
+
+  stages {
+    stage('Clone') {
+      steps { checkout scm }
+    }
+
+    stage('Build') {
+      steps { sh 'docker build -t finderskeepers .' }
+    }
+
+    stage('Push Image') {
+      steps {
+        sh 'docker tag finderskeepers username/finderskeepers:latest'
+        sh 'docker push username/finderskeepers:latest'
+      }
+    }
+  }
+}
