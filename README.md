@@ -11,10 +11,13 @@ This is the Final Project for the Course :-
 - Jenkins / GitHub Actions
 
 ## Features
-- User Authentication
-- Item Management
+- User Authentication (JWT-based)
+- Item Management (Lost & Found system)
 - Claim System
-- Role-based Authorization
+- Role-Based Access Control (RBAC)
+  - USER role
+  - ADMIN role
+  - Admin-protected endpoints
 
 ## How to Run
 
