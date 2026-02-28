@@ -55,3 +55,26 @@ def review_claim(claim_id):
     db.session.commit()
 
     return jsonify({"msg": f"Claim {data['action']}ed successfully"})
+
+
+@claim_bp.route("/my", methods=["GET"])
+@jwt_required()
+def my_claims():
+    """Return claims created by or against the current user."""
+    user_id = get_jwt_identity()
+    made = Claim.query.filter_by(claimant_id=user_id).all()
+    received = Claim.query.join(Item, Claim.item_id == Item.id)\
+        .filter(Item.user_id == user_id).all()
+
+    def serialize(claim):
+        return {
+            "id": claim.id,
+            "item_id": claim.item_id,
+            "claimant_id": claim.claimant_id,
+            "status": claim.status
+        }
+
+    return jsonify({
+        "made": [serialize(c) for c in made],
+        "received": [serialize(c) for c in received]
+    })
