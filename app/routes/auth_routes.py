@@ -24,3 +24,9 @@ def login():
         return jsonify(access_token=token)
 
     return jsonify({"msg": "Invalid credentials"}), 401
+
+
+# simple health check endpoint to verify auth blueprint is loaded
+@auth_bp.route("/ping", methods=["GET"])
+def ping():
+    return jsonify({"status": "ok", "service": "auth"})
