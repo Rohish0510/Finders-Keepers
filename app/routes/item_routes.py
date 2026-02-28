@@ -4,8 +4,12 @@ from app.extensions import db
 from app.models.item import Item
 from app.models.user import User
 from app.services.matching_service import find_similar
+from app.utils.decorators import role_required
 
 item_bp = Blueprint("items", __name__)
+
+
+# ================= CREATE ITEM =================
 
 @item_bp.route("/", methods=["POST"])
 @jwt_required()
@@ -45,6 +49,8 @@ def create_item():
     }), 201
 
 
+# ================= GET ALL ITEMS =================
+
 @item_bp.route("/", methods=["GET"])
 def get_all_items():
     items = Item.query.all()
@@ -61,3 +67,26 @@ def get_all_items():
         }
         for item in items
     ])
+
+
+# ================= DELETE ITEM (ADMIN ONLY) =================
+
+@item_bp.route("/<int:item_id>", methods=["DELETE"])
+@jwt_required()
+@role_required("ADMIN")
+def delete_item(item_id):
+    item = Item.query.get_or_404(item_id)
+
+    db.session.delete(item)
+    db.session.commit()
+
+    return jsonify({"message": "Item deleted successfully"}), 200
+
+
+# ================= ADMIN TEST ROUTE =================
+
+@item_bp.route("/admin-only", methods=["GET"])
+@jwt_required()
+@role_required("ADMIN")
+def admin_route():
+    return jsonify({"message": "Welcome Admin"})
