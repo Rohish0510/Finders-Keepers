@@ -7,6 +7,26 @@ The application follows a modular backend architecture and is fully containerize
 
 ---
 
+## Table of Contents
+
+1. Problem Statement  
+2. Features  
+3. Tech Stack  
+4. Project Architecture  
+5. Application Workflow  
+6. API Endpoints  
+7. Running the Application  
+8. CI/CD Pipeline  
+9. Dockerhub Image  
+10. Security Considerations  
+11. Testing Strategy  
+12. Future Enhancements  
+13. Sample API Requests & Responses  
+14. Team Members  
+15. Conclusion  
+
+---
+
 ## 1. Problem Statement
 
 In institutions such as colleges or campuses, lost and found item tracking is often handled manually. This results in:
@@ -86,6 +106,7 @@ FindersKeepers provides a secure backend solution that manages item reporting an
 ## 4. Project Architecture
 
 ### Folder Structure
+
 finders-keepers/
 │
 ├── app/
@@ -107,7 +128,6 @@ finders-keepers/
 ├── requirements.txt
 ├── README.md
 └── USER_STORIES.md
-
 
 ### Architecture Explanation
 
@@ -158,8 +178,8 @@ This workflow enforces ownership validation and prevents unauthorized claim appr
 - `GET /health`
 
 All protected routes require:
-Authorization: Bearer <JWT_TOKEN>
 
+Authorization: Bearer <JWT_TOKEN>
 
 ---
 
@@ -167,11 +187,11 @@ Authorization: Bearer <JWT_TOKEN>
 
 ### Using Docker
 
-Build image:
+Build and start containers:
 
 docker compose up --build
 
-### Run Container
+### Run Container Directly
 
 docker run -p 5001:5000 finderskeepers
 
@@ -185,11 +205,11 @@ http://localhost:5001/health
 
 The CI/CD pipeline includes:
 
-  - Clone repository
-  - Build application
-  - Create Docker image
-  - Push image to DockerHub
-  - Optional deployment to AWS EC2
+- Clone repository  
+- Build application  
+- Create Docker image  
+- Push image to DockerHub  
+- Optional deployment to AWS EC2  
 
 This ensures automated image creation and deployment consistency.
 
@@ -209,12 +229,12 @@ docker run -p 5001:5000 <your-dockerhub-username>/finderskeepers:latest
 
 ## 10. Security Considerations
 
-1. Password hashing implemented
-2. JWT-based stateless authentication
-3. Authorization checks for ownership
-4. Prevention of self-claiming
-5. Duplicate claim prevention
-6. Protected routes with token validation
+1. Password hashing implemented  
+2. JWT-based stateless authentication  
+3. Authorization checks for ownership  
+4. Prevention of self-claiming  
+5. Duplicate claim prevention  
+6. Protected routes with token validation  
 
 ---
 
@@ -222,51 +242,94 @@ docker run -p 5001:5000 <your-dockerhub-username>/finderskeepers:latest
 
 The system was tested using:
 
-  1. Functional endpoint testing
-  2. Authentication validation tests
-  3. Authorization validation tests
-  4. Negative test cases
-  5. Edge case testing
-  6. Docker runtime validation
+1. Functional endpoint testing  
+2. Authentication validation tests  
+3. Authorization validation tests  
+4. Negative test cases  
+5. Edge case testing  
+6. Docker runtime validation  
 
 Testing was performed using curl commands and container log verification.
 
 ---
 
-
 ## 12. Future Enhancements
 
-  1. Frontend UI integration
-  2. Email notifications
-  3. Admin dashboard
-  4. Search and pagination
-  5. Audit logging
-  6. Activity monitoring
-  7. Rate limiting and API throttling
+1. Frontend UI integration  
+2. Email notifications  
+3. Admin dashboard  
+4. Search and pagination  
+5. Audit logging  
+6. Activity monitoring  
+7. Rate limiting and API throttling  
 
 ---
 
-## 14. Team Members : 
+## 13. Sample API Requests & Responses
 
-  1. 23N203 - Aakash Balaa
-  2. 23N230 - Muralikarthik
-  3. 23N232 - Nikileshh
-  4. 23N240 - Rohish Raj
+### Register User
+
+POST /api/auth/register
+
+Request:
+{
+  "email": "user@example.com",
+  "password": "password123"
+}
+
+Response:
+{
+  "message": "User registered successfully"
+}
 
 ---
 
-## 14. Conclusion
+### Login User
+
+POST /api/auth/login
+
+Response:
+{
+  "access_token": "<JWT_TOKEN>"
+}
+
+---
+
+### Create Item (Protected)
+
+POST /api/items
+
+Headers:
+Authorization: Bearer <JWT_TOKEN>
+
+Request:
+{
+  "title": "Lost Wallet",
+  "description": "Black leather wallet",
+  "type": "lost"
+}
+
+---
+
+## 14. Team Members
+
+1. 23N203 - Aakash Balaa  
+2. 23N230 - Muralikarthik  
+3. 23N232 - Nikileshh  
+4. 23N240 - Rohish Raj  
+
+---
+
+## 15. Conclusion
 
 FindersKeepers demonstrates backend engineering best practices including:
 
-  1. Secure REST API design
-  2. Modular Flask architecture
-  3. JWT authentication
-  4. Role-based authorization
-  5. Docker containerization
-  6. CI/CD automation
-  7. Cloud deployment readiness
+1. Secure REST API design  
+2. Modular Flask architecture  
+3. JWT authentication  
+4. Role-based authorization  
+5. Docker containerization  
+6. CI/CD automation  
+7. Cloud deployment readiness  
 
 The system is scalable, maintainable, and production-ready.
-
----
