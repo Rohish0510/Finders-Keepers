@@ -6,7 +6,12 @@ from app.routes.auth_routes import auth_bp
 from app.routes.item_routes import item_bp
 from app.routes.claim_routes import claim_bp
 from app.models import user, item, claim
+from app.logging_config import configure_logging
 import logging
+
+
+configure_logging()
+logger = logging.getLogger(__name__)
 
 
 def create_app():
@@ -18,12 +23,9 @@ def create_app():
     db.init_app(app)
     jwt.init_app(app)
 
-    # Setup logging
-    logging.basicConfig(level=logging.INFO)
-
     @app.before_request
     def log_request_info():
-        logging.info(f"Request: {request.method} {request.url}")
+        logger.info(f"Request: {request.method} {request.url}")
 
     # Register blueprints
     app.register_blueprint(auth_bp, url_prefix="/api/auth")
